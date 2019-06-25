@@ -12,7 +12,8 @@ class ShopTableViewController: UIViewController,UITableViewDelegate, UITableView
     @IBOutlet weak var shopTable: UITableView!
     
    // let shops: [shopModel]
-   let shopNames: [String] = ["Winterfell" , "Kings Landing" , "Harrenhal", "Dragonstone"] 
+    let offers:[String] = ["10% on Sprite","5% on Pulpy Orange","nil","10% on Sprite."]
+    let shopNames: [String] = ["Winterfell" , "Kings Landing" , "Harrenhal", "Dragonstone"]
     let shopAddress: [String] = ["street 1, area 51", "22B, Baker Street", "Stark Tower,Marathahalli", "Winterfell, Bellandur"]
     let distance: [String] = ["1.2 km" , "2.3 km" , "4.5 km", "8 km"]
     let cellReuseIdentifier = "cell"
@@ -41,6 +42,10 @@ class ShopTableViewController: UIViewController,UITableViewDelegate, UITableView
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
+        var myalert = UIAlertController(title: "Offers Available", message: "Offer: "+self.offers[indexPath.row] , preferredStyle: UIAlertController.Style.alert)
+        let okaction=UIAlertAction(title: "Cool!", style: UIAlertAction.Style.default, handler: nil)
+        myalert.addAction(okaction)
+        self.present(myalert, animated: true, completion: nil)
     }
 
 }

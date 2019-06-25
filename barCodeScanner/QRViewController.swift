@@ -15,8 +15,12 @@ class QRViewController: UIViewController,AVCaptureMetadataOutputObjectsDelegate 
     @IBOutlet weak var cartQRView: UIView!
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    
+    var newVC=ItemToCartViewController()
 
+    @IBAction func continueClick(_ sender: Any) {
+         self.performSegue(withIdentifier: "goToscan" , sender: nil)
+    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         continueButton.isHidden=true

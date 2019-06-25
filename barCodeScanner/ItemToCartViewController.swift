@@ -9,12 +9,17 @@
 import UIKit
 
 class ItemToCartViewController: UIViewController,BarCodeDelegate {
+    func updatedList(cart: [ItemModel]) {
+        self.ItemsToCartList = cart
+    }
+    
     @IBOutlet weak var ItemQuantity: UITextField!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemDisplayPic: UIImageView!
     @IBOutlet weak var itemDisplayView: UIView!
     @IBOutlet weak var ItemtotalPrice: UILabel!
+    
     
     var ItemToCart: ItemModel?
     var ItemsToCartList: [ItemModel] = []

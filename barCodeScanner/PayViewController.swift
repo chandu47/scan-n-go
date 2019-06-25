@@ -24,6 +24,7 @@ class PayViewController: UIViewController {
         }
     }
         
+    @IBOutlet weak var errorLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         errorView.isHidden=true
@@ -32,9 +33,14 @@ class PayViewController: UIViewController {
         calWeight()
         print(self.totalWeight)
         print(realWeight)
-        if(realWeight<=totalWeight+self.threshold){
+        if(realWeight<=totalWeight+self.threshold && totalWeight <= realWeight+self.threshold ){
             payButton.isHidden=false
             doneView.isHidden=false
+        }
+        
+        else if(realWeight < totalWeight - self.threshold){
+            errorView.isHidden=false
+            errorLabel.text="You have missed some items."
         }
         
         else{

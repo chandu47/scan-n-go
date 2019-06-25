@@ -8,12 +8,15 @@
 
 import UIKit
 
+
+
 class CartViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var totalValueLabel: UILabel!
     @IBOutlet weak var cartTable: UITableView!
     let cellReuseIdentifier = "cartCell"
     var itemsInCart: [ItemModel?] = []
     var total:Float = 0.0
+    //var delegate: removeFromCartDelegate?
     @IBAction func backClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -21,6 +24,7 @@ class CartViewController: UIViewController,UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         print(itemsInCart)
+        
         
         cartTable.delegate=self
         cartTable.dataSource=self
@@ -48,14 +52,24 @@ class CartViewController: UIViewController,UITableViewDelegate, UITableViewDataS
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            var removed = self.itemsInCart.remove(at: indexPath.row)
+            
+            self.cartTable.deleteRows(at: [indexPath], with: .automatic)
+            self.total = total-(removed?.Price)!*Float((removed?.quantity)!)
+            self.totalValueLabel.text = String(self.total)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "paySegue" {
                 let destinationVC = segue.destination as! PayViewController
                 destinationVC.cartList=self.itemsInCart
                 destinationVC.totalPay=self.total
             }
-            
-
+        
             
         }
     
